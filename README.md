@@ -22,6 +22,9 @@
 <code>truffle console</code>
 <br>
 
+<hr>
+
+<h2>Below are things to do on Truffle Console</h2>
 
 ### Assign variable 
 <code>mediScan = await MediScan.deployed()</code>
@@ -37,4 +40,17 @@
 
 ### View Patient
 <code>pat = await mediScan.Patients('0x7797be30D100F52bBA474ce30515C66ef67157d5')</code>
+<br>
+
+### View Patient Attributes
+<code>pat.\<attr\></code>
+<h6>For Example</h6>
+
+<code>pat.name</code>
+<br>
+<code>pat.allergies</code>
+<br>
+<code>pat.patientAddress</code>
+<br>
+<code>pat.residenceAddress</code>
 <br>
