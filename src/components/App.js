@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import Home from './home'
+import ScanPatient from './scanCode';
 
 
 class App extends Component {
@@ -35,6 +36,9 @@ class App extends Component {
         <Switch>
           <Route path="/">
             <Home />
+          </Route>
+          <Route path="/scan">
+            <ScanPatient />
           </Route>
         </Switch>
       </div>
