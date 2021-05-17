@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Navbar from './Navbar'
 import './App.css'
 import {Jumbotron, Container} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 import Web3 from 'web3'
 import MediScan from '../abis/MediScan.json'
@@ -64,14 +65,15 @@ class Home extends Component{
           <Navbar account={this.state.account} />
          <div className='cardsa'>
          <div className='actualCard'>
-             <Jumbotron fluid>
+         <Link to="/scan"><Jumbotron fluid>
     <Container>
       <h1 style={{textAlign:'center', }}>Scan Code</h1>
       <p style={{textAlign:'center', }}>
         Press me to scan a new code
       </p>
     </Container>
-  </Jumbotron></div>
+  </Jumbotron></Link>
+             </div>
   <div className='actualCard'>
   <Jumbotron fluid>
     <Container>
