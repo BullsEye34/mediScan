@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 class AddPatient extends Component{
     render(){
