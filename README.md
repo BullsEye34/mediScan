@@ -34,3 +34,7 @@
 ### Create Patient
 <code>creat = await mediScan.createPatient('P Vamshi', '284', 123456789, 'NA', 'NA', 'NA', '0x7797be30D100F52bBA474ce30515C66ef67157d5')</code>
 <br>
+
+### View Patient
+<code>pat = await mediScan.Patients('0x7797be30D100F52bBA474ce30515C66ef67157d5')</code>
+<br>
