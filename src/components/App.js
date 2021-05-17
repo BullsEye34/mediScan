@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import Home from './home'
-import ScanPatient from './scanCode';
+import ScanPatient from './scanPatient';
 
 
 class App extends Component {
