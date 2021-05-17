@@ -63,7 +63,8 @@ class Home extends Component{
             <div>
           <Navbar account={this.state.account} />
          <div className='cardsa'>
-         <div className='actualCard'><Jumbotron fluid>
+         <div className='actualCard'>
+             <Jumbotron fluid>
     <Container>
       <h1 style={{textAlign:'center', }}>Scan Code</h1>
       <p style={{textAlign:'center', }}>
