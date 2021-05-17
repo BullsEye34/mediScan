@@ -5,8 +5,17 @@ import './App.css'
 
 class App extends Component {
 
+  /// More like initState of Flutter
   async componentWillMount(){
     await this.loadWeb3()
+    await this.loadAccount()
+  }
+
+  async loadAccount(){
+    const web3 = window.web3
+    const accounts = await web3.eth.getAccounts()
+    this.setState({account: accounts[0]})
+
   }
 
   /// Function to Load Web3
