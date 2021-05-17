@@ -21,6 +21,17 @@ class App extends Component {
     console.log(networkID)
     const MediScanData = MediScan.networks[networkID]
 
+    if(MediScanData) {
+      const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
+      this.setState({ mediScan })
+      let Patients = await mediScan.methods.Patients(this.state.account).call()
+      this.setState({Patients})
+      console.log(Patients)
+      
+    } else {
+      window.alert('DaiToken contract not deployed to detected network.')
+    }
+
   }
 
   /// Function to Load Web3
@@ -41,7 +52,9 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      account: '0x0'
+      account: '0x0',
+      mediScan: {},
+      Patients: {},
     }
   }
 
