@@ -27,9 +27,9 @@ class App extends Component {
       let Patients = await mediScan.methods.Patients(this.state.account).call()
       this.setState({Patients})
       console.log(Patients)
-      
+
     } else {
-      window.alert('DaiToken contract not deployed to detected network.')
+      window.alert('MediScan contract not deployed to detected network.')
     }
 
   }
