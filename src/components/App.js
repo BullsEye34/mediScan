@@ -19,6 +19,7 @@ class App extends Component {
 
     const networkID = await web3.eth.net.getId()
     console.log(networkID)
+    const MediScanData = MediScan.networks[networkID]
 
   }
 
