@@ -1,1 +1,14 @@
 /* Styles go here */
+
+.cardsa {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 90vh;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.actualCard {
+  width: 50vw;
+}
