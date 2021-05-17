@@ -18,3 +18,6 @@
 <code>truffle migrate</code>
 <br>
 
+## Talk with the console
+<code>truffle console</code>
+<br>
