@@ -21,3 +21,8 @@
 ## Talk with the console
 <code>truffle console</code>
 <br>
+
+
+### Assign variable 
+<code>mediScan = await MediScan.deployed()</code>
+<br>
