@@ -26,3 +26,7 @@
 ### Assign variable 
 <code>mediScan = await MediScan.deployed()</code>
 <br>
+
+### Check Address of Deployment 
+<code>mediScan.address</code>
+<br>
