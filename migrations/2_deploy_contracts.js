@@ -1,5 +1,5 @@
-const MediScan = artifacts.require("MediScan");
+const MediScan = artifacts.require('MediScan')
 
 module.exports = function(deployer) {
-  deployer.deploy(MediScan);
+  deployer.deploy(MediScan)
 };
