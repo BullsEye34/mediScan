@@ -1,6 +1,6 @@
 // Use Solidity Version greater than 0.7.0 and less than 0.9.0
 
-pragma solidity >=0.7.0 <0.9.0;
+pragma solidity ^0.5.0;
 
 // Create a Smart Contract called Medical
 contract MediScan {
