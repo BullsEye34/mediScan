@@ -16,6 +16,9 @@ class App extends Component {
     const accounts = await web3.eth.getAccounts()
     this.setState({account: accounts[0]})
 
+    const networkID = await web3.eth.net.getId()
+    console.log(networkID)
+
   }
 
   /// Function to Load Web3
