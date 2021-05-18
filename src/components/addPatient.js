@@ -34,7 +34,7 @@ class AddPatient extends Component{
     }
   }
 
-  async addPatient( name:String,  address: String,  phno: int,  nominee:String,  medicalIssue:String,  allergies:String,  networkAddress:String){
+  async addPatient( name,  address,  phno,  nominee,  medicalIssue,  allergies,  networkAddress){
     const web3 = window.web3
     const networkID = await web3.eth.net.getId()
     console.log(networkID)
