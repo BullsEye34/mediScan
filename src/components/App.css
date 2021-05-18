@@ -14,9 +14,16 @@
   width: 50vw;
 }
 
+.adder {
+  width: 50vw;
+}
+
 @media only screen and (max-width: 480px) {
   .actualCard {
     text-decoration: none;
+    width: 90vw;
+  }
+  .adder {
     width: 90vw;
   }
 }

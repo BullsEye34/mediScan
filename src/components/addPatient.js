@@ -1,6 +1,8 @@
 import Navbar from "./Navbar";
 import React, { Component } from 'react'
+import {Form, Button, Row, Col} from 'react-bootstrap'
 import Web3 from 'web3'
+import MediScan from '../abis/MediScan.json'
 
 class AddPatient extends Component{
     
@@ -32,18 +34,110 @@ class AddPatient extends Component{
     }
   }
 
+  async addPatient( name:String,  address: String,  phno: int,  nominee:String,  medicalIssue:String,  allergies:String,  networkAddress:String){
+    const web3 = window.web3
+    const networkID = await web3.eth.net.getId()
+    console.log(networkID)
+    const MediScanData = MediScan.networks[networkID]
+
+    if(MediScanData) {
+      const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
+      this.setState({ mediScan })
+      let newPatient = await mediScan.methods.createPatient().call()
+      this.setState({newPatient})
+
+    } else {
+      window.alert('MediScan contract not deployed to detected network.')
+    }
+    
+  }
+
 
   constructor(props) {
     super(props)
     this.state = {
-      account: '0x0',
+      newPatient: {},
     }
   }
 
 
     render(){
         return(
-            <Navbar account={this.state.account}/>
+            
+            <div>
+              <Navbar account={this.state.account}/>
+             <center>
+             <div className="adder">
+              <Form>
+              <Form.Group as={Row} controlId="formPlaintextPassword">
+    <Form.Label column sm="2">
+      Patient Name
+    </Form.Label>
+    <Col sm="10">
+      <Form.Control type="name" placeholder="Name" />
+    </Col>
+  </Form.Group>
+
+  <Form.Group as={Row} controlId="formPlaintextPassword">
+    <Form.Label column sm="2">
+       Phone Number
+    </Form.Label>
+    <Col sm="10">
+      <Form.Control type="number" placeholder="Phone Number" />
+    </Col>
+  </Form.Group>
+  
+  <Form.Group as={Row} controlId="formPlaintextPassword">
+    <Form.Label column sm="2">
+      Residential Address
+    </Form.Label>
+    <Col sm="10">
+    <Form.Control as="textarea" rows={3} placeholder="Residential Address" />
+    </Col>
+  </Form.Group>
+
+  <Form.Group as={Row} controlId="formPlaintextPassword">
+    <Form.Label column sm="2">
+       Nominee
+    </Form.Label>
+    <Col sm="10">
+      <Form.Control type="text" placeholder="Nominee Name" />
+    </Col>
+  </Form.Group>
+
+  <Form.Group as={Row} controlId="formPlaintextPassword">
+    <Form.Label column sm="2">
+       Allergies
+    </Form.Label>
+    <Col sm="10">
+      <Form.Control type="text" placeholder="Allergies" />
+    </Col>
+  </Form.Group>
+
+  <Form.Group as={Row} controlId="formPlaintextPassword">
+    <Form.Label column sm="2">
+       Medical Issues
+    </Form.Label>
+    <Col sm="10">
+      <Form.Control type="text" placeholder="Medical Issues" />
+    </Col>
+  </Form.Group>
+
+  <Form.Group as={Row} controlId="formPlaintextPassword">
+    <Form.Label column sm="2">
+       Network Address
+    </Form.Label>
+    <Col sm="10">
+      <Form.Control type="text" placeholder="0x123456......" />
+    </Col>
+  </Form.Group>
+  <Button variant="primary" type="submit" onClick="">
+    Submit
+  </Button>
+</Form>
+              </div>
+             </center>
+              </div>
         );
     }
 
