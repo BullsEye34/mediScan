@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import React, { Component } from 'react'
 import {Form, Button, Row, Col} from 'react-bootstrap'
 import Web3 from 'web3'
+import {Link } from 'react-router-dom'
 import MediScan from '../abis/MediScan.json'
 
 class AddPatient extends Component{
@@ -168,9 +169,11 @@ class AddPatient extends Component{
             required value={this.state.netAddr} onChange={(e)=>this.setState({netAddr:e.target.value})} type="text" placeholder="0x123456......" />
     </Col>
   </Form.Group>
-  <Button variant="primary" type="button" onClick={(e)=>this.onFormSubmit(e)}>
+  <Link to={{pathname: "/added", state: this.state.netAddr}}  onClick={(e)=>this.onFormSubmit(e)}>
+  <Button variant="primary" type="button" >
     Submit
   </Button>
+  </Link>
 </Form>
               </div>
              </center>

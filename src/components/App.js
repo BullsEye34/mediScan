@@ -6,6 +6,7 @@ import AddPatient from './addPatient';
 
 import Home from './home'
 import ScanPatient from './scanPatient';
+import ChooseImage from './chooseImage';
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
         <Route exact path="/" component={Home}></Route>
       <Route exact path="/scan" component={ScanPatient}></Route>
       <Route exact path="/add" component={AddPatient}></Route>
+      <Route exact path="/added" component={ChooseImage} ></Route>
       </div>
     );
   }
