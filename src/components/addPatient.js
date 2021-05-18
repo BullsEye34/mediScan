@@ -71,7 +71,7 @@ class AddPatient extends Component{
              <center>
              <div className="adder">
               <Form>
-              <Form.Group as={Row} controlId="formPlaintextPassword">
+              <Form.Group as={Row} controlId="name">
     <Form.Label column sm="2">
       Patient Name
     </Form.Label>
@@ -80,7 +80,7 @@ class AddPatient extends Component{
     </Col>
   </Form.Group>
 
-  <Form.Group as={Row} controlId="formPlaintextPassword">
+  <Form.Group as={Row} controlId="number">
     <Form.Label column sm="2">
        Phone Number
     </Form.Label>
@@ -89,7 +89,7 @@ class AddPatient extends Component{
     </Col>
   </Form.Group>
   
-  <Form.Group as={Row} controlId="formPlaintextPassword">
+  <Form.Group as={Row} controlId="address">
     <Form.Label column sm="2">
       Residential Address
     </Form.Label>
@@ -98,7 +98,7 @@ class AddPatient extends Component{
     </Col>
   </Form.Group>
 
-  <Form.Group as={Row} controlId="formPlaintextPassword">
+  <Form.Group as={Row} controlId="nominee">
     <Form.Label column sm="2">
        Nominee
     </Form.Label>
@@ -107,7 +107,7 @@ class AddPatient extends Component{
     </Col>
   </Form.Group>
 
-  <Form.Group as={Row} controlId="formPlaintextPassword">
+  <Form.Group as={Row} controlId="allergies">
     <Form.Label column sm="2">
        Allergies
     </Form.Label>
@@ -116,7 +116,7 @@ class AddPatient extends Component{
     </Col>
   </Form.Group>
 
-  <Form.Group as={Row} controlId="formPlaintextPassword">
+  <Form.Group as={Row} controlId="medicalIssues">
     <Form.Label column sm="2">
        Medical Issues
     </Form.Label>
@@ -125,7 +125,7 @@ class AddPatient extends Component{
     </Col>
   </Form.Group>
 
-  <Form.Group as={Row} controlId="formPlaintextPassword">
+  <Form.Group as={Row} controlId="netAddr">
     <Form.Label column sm="2">
        Network Address
     </Form.Label>
