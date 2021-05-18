@@ -34,6 +34,15 @@ class AddPatient extends Component{
     }
   }
 
+   onFormSubmit(e) {
+    
+    e.preventDefault()
+    /* const formData = new FormData(e.target),
+          formDataObj = Object.fromEntries(formData.entries()) */
+    console.log(e.target)
+    //console.log(e.target.elements.name.value)
+  }
+
   async addPatient( name,  address,  phno,  nominee,  medicalIssue,  allergies,  networkAddress){
     const web3 = window.web3
     const networkID = await web3.eth.net.getId()
@@ -58,7 +67,14 @@ class AddPatient extends Component{
     super(props)
     this.state = {
       newPatient: {},
-      netAddr: '0x0'
+      netAddr: '0x0',
+      name:'',
+      phone:1,
+      address:'',
+      allergies:'',
+      nominee:'',
+      medical:'',
+
     }
   }
 
@@ -70,13 +86,13 @@ class AddPatient extends Component{
               <Navbar account={this.state.account}/>
              <center>
              <div className="adder">
-              <Form>
+              <Form onSubmit={(e)=>this.onFormSubmit()}>
               <Form.Group as={Row} controlId="name">
     <Form.Label column sm="2">
       Patient Name
     </Form.Label>
     <Col sm="10">
-      <Form.Control type="name" placeholder="Name" />
+      <Form.Control value={this.state.name} onChange={(e)=>this.setState({name:e.target.value})} type="name" placeholder="Name" />
     </Col>
   </Form.Group>
 
@@ -133,7 +149,7 @@ class AddPatient extends Component{
       <Form.Control type="text" placeholder="0x123456......" />
     </Col>
   </Form.Group>
-  <Button variant="primary" type="submit" onClick="">
+  <Button variant="primary" type="button" onClick={(e)=>this.onFormSubmit()}>
     Submit
   </Button>
 </Form>
