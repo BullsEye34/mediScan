@@ -72,6 +72,16 @@ class ChooseImage extends Component{
         return(
             <div>
                 <Navbar account={this.state.account}/>
+                <center>
+                <div className="imageCard">
+                    <div className="actualCards">
+                        Capture
+                    </div>
+                    <div className="actualCards">
+                        Upload
+                    </div>
+                </div>
+                </center>
             </div>
         );
     }

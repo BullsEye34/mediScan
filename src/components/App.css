@@ -17,6 +17,31 @@
 .adder {
   width: 50vw;
 }
+.imageCard {
+  width: 50vw;
+  height: 90vh;
+  border-radius: 20px;
+  z-index: 1;
+  box-shadow: 0px 0px 90px 0px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.actualCards {
+  width: 30vw;
+  height: 40vh;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  border: 2px;
+  border-radius: 20px;
+  border-spacing: 2px;
+  background-color: aliceblue;
+  margin: 2vw;
+}
 
 @media only screen and (max-width: 480px) {
   .actualCard {
@@ -25,5 +50,13 @@
   }
   .adder {
     width: 90vw;
+  }
+
+  .imageCard {
+    width: 80vw;
+    height: 80vh;
+    border-radius: 20px;
+    z-index: 1;
+    box-shadow: 0px 0px 90px 0px rgba(0, 0, 0, 0.2);
   }
 }
