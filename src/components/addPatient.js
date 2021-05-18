@@ -43,8 +43,9 @@ class AddPatient extends Component{
     if(MediScanData) {
       const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
       this.setState({ mediScan })
-      let newPatient = await mediScan.methods.createPatient().call()
+      let newPatient = await mediScan.methods.createPatient(name, address, phno, nominee, medicalIssue, allergies, networkAddress).call()
       this.setState({newPatient})
+      this.setState({netAddr: networkAddress})
 
     } else {
       window.alert('MediScan contract not deployed to detected network.')
@@ -57,6 +58,7 @@ class AddPatient extends Component{
     super(props)
     this.state = {
       newPatient: {},
+      netAddr: '0x0'
     }
   }
 
