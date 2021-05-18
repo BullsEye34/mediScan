@@ -35,15 +35,25 @@ class AddPatient extends Component{
   }
 
    onFormSubmit(e) {
-    
-    e.preventDefault()
-    /* const formData = new FormData(e.target),
-          formDataObj = Object.fromEntries(formData.entries()) */
-    console.log(e.target)
-    //console.log(e.target.elements.name.value)
+     if(this.state.name===''||this.state.address===''||this.state.phone===''||this.state.nominee===''||
+     this.state.medical===''||this.state.allergies===''||this.state.netAddr===''){
+       alert("Empty Fields!\n\n All Textfields are compulsory")
+     }else{
+       
+    this.addPatient(
+      this.state.name,
+      this.state.address,
+      this.state.phone,
+      this.state.nominee,
+      this.state.medical,
+      this.state.allergies,
+      this.state.netAddr,
+      );
+     }
   }
 
   async addPatient( name,  address,  phno,  nominee,  medicalIssue,  allergies,  networkAddress){
+    //console.log(name+" "+address+" "+phno+" "+nominee+" "+medicalIssue+" "+allergies+" "+networkAddress)
     const web3 = window.web3
     const networkID = await web3.eth.net.getId()
     console.log(networkID)
@@ -52,9 +62,11 @@ class AddPatient extends Component{
     if(MediScanData) {
       const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
       this.setState({ mediScan })
-      let newPatient = await mediScan.methods.createPatient(name, address, phno, nominee, medicalIssue, allergies, networkAddress).call()
+      //let newPatient = await mediScan.methods.createPatient('P Vamshi Prasad', '284, 2nd main, new BDA Layout', 1234567890, 'NA', 'NA', 'NA', '0x1cCb76B390446c359ED1De49f0Bd8b25D418DA86').send({from: this.state.account}).call()
+      let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), nominee, medicalIssue, allergies, networkAddress).send({from: this.state.account}).call()
       this.setState({newPatient})
-      this.setState({netAddr: networkAddress})
+      let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
+      console.log(patientCreated)
 
     } else {
       window.alert('MediScan contract not deployed to detected network.')
@@ -67,9 +79,9 @@ class AddPatient extends Component{
     super(props)
     this.state = {
       newPatient: {},
-      netAddr: '0x0',
+      netAddr: '',
       name:'',
-      phone:1,
+      phone:'',
       address:'',
       allergies:'',
       nominee:'',
@@ -92,7 +104,8 @@ class AddPatient extends Component{
       Patient Name
     </Form.Label>
     <Col sm="10">
-      <Form.Control value={this.state.name} onChange={(e)=>this.setState({name:e.target.value})} type="name" placeholder="Name" />
+      <Form.Control 
+            required value={this.state.name} onChange={(e)=>this.setState({name:e.target.value})} type="name" placeholder="Name" />
     </Col>
   </Form.Group>
 
@@ -101,7 +114,8 @@ class AddPatient extends Component{
        Phone Number
     </Form.Label>
     <Col sm="10">
-      <Form.Control type="number" placeholder="Phone Number" />
+      <Form.Control
+            required value={this.state.phone} onChange={(e)=>this.setState({phone:e.target.value})} type="number" placeholder="Phone Number" />
     </Col>
   </Form.Group>
   
@@ -110,7 +124,8 @@ class AddPatient extends Component{
       Residential Address
     </Form.Label>
     <Col sm="10">
-    <Form.Control as="textarea" rows={3} placeholder="Residential Address" />
+    <Form.Control
+            required as="textarea" value={this.state.address} onChange={(e)=>this.setState({address:e.target.value})} rows={3} placeholder="Residential Address" />
     </Col>
   </Form.Group>
 
@@ -119,7 +134,8 @@ class AddPatient extends Component{
        Nominee
     </Form.Label>
     <Col sm="10">
-      <Form.Control type="text" placeholder="Nominee Name" />
+      <Form.Control
+            required type="text" value={this.state.nominee} onChange={(e)=>this.setState({nominee:e.target.value})} placeholder="Nominee Name" />
     </Col>
   </Form.Group>
 
@@ -128,7 +144,8 @@ class AddPatient extends Component{
        Allergies
     </Form.Label>
     <Col sm="10">
-      <Form.Control type="text" placeholder="Allergies" />
+      <Form.Control
+            required value={this.state.allergies} onChange={(e)=>this.setState({allergies:e.target.value})} type="text" placeholder="Allergies" />
     </Col>
   </Form.Group>
 
@@ -137,7 +154,8 @@ class AddPatient extends Component{
        Medical Issues
     </Form.Label>
     <Col sm="10">
-      <Form.Control type="text" placeholder="Medical Issues" />
+      <Form.Control
+            required value={this.state.medical} onChange={(e)=>this.setState({medical:e.target.value})} type="text" placeholder="Medical Issues" />
     </Col>
   </Form.Group>
 
@@ -146,10 +164,11 @@ class AddPatient extends Component{
        Network Address
     </Form.Label>
     <Col sm="10">
-      <Form.Control type="text" placeholder="0x123456......" />
+      <Form.Control
+            required value={this.state.netAddr} onChange={(e)=>this.setState({netAddr:e.target.value})} type="text" placeholder="0x123456......" />
     </Col>
   </Form.Group>
-  <Button variant="primary" type="button" onClick={(e)=>this.onFormSubmit()}>
+  <Button variant="primary" type="button" onClick={(e)=>this.onFormSubmit(e)}>
     Submit
   </Button>
 </Form>

@@ -78,7 +78,7 @@ class Home extends Component{
   </Link>
 </div>
   <div className='actualCard'>
- <Link to="/add" style={{textDecoration:'none'}}>
+ <Link to="/add" account={this.state.account} style={{textDecoration:'none'}}>
  <Jumbotron fluid>
     <Container>
       <h1 style={{textAlign:'center', }}>Add New Patient</h1>
