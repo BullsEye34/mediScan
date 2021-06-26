@@ -46,7 +46,6 @@ class ChooseImage extends Component{
     if(MediScanData) {
       const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
       this.setState({ mediScan })
-      //let newPatient = await mediScan.methods.createPatient('P Vamshi Prasad', '284, 2nd main, new BDA Layout', 1234567890, 'NA', 'NA', 'NA', '0x1cCb76B390446c359ED1De49f0Bd8b25D418DA86').send({from: this.state.account}).call()
       let patientCreated = await mediScan.methods.Patients(this.props.location.state).call()
       console.log(patientCreated)
       this.setState({patientCreated})

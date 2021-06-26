@@ -2,8 +2,9 @@ import Navbar from "./Navbar";
 import React, { Component } from 'react'
 import {Form, Button, Row, Col} from 'react-bootstrap'
 import Web3 from 'web3'
-import {Link } from 'react-router-dom'
+import {Link,} from 'react-router-dom'
 import MediScan from '../abis/MediScan.json'
+
 
 class AddPatient extends Component{
     
@@ -36,6 +37,7 @@ class AddPatient extends Component{
   }
 
    onFormSubmit(e) {
+    e.preventDefault()
      if(this.state.name===''||this.state.address===''||this.state.phone===''||this.state.nominee===''||
      this.state.medical===''||this.state.allergies===''||this.state.netAddr===''){
        alert("Empty Fields!\n\n All Textfields are compulsory")
@@ -64,10 +66,21 @@ class AddPatient extends Component{
       const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
       this.setState({ mediScan })
       //let newPatient = await mediScan.methods.createPatient('P Vamshi Prasad', '284, 2nd main, new BDA Layout', 1234567890, 'NA', 'NA', 'NA', '0x1cCb76B390446c359ED1De49f0Bd8b25D418DA86').send({from: this.state.account}).call()
-      let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), nominee, medicalIssue, allergies, networkAddress).send({from: this.state.account}).call()
-      this.setState({newPatient})
-      let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
-      console.log(patientCreated)
+      
+      if((await mediScan.methods.Patients(networkAddress).call())["patientAddress"]==="0x0000000000000000000000000000000000000000") {
+        let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), nominee, medicalIssue, allergies, networkAddress).send({from: this.state.account})
+        this.setState({newPatient})
+        let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
+        console.log(patientCreated)
+        this.props.history.push({
+          pathname: '/added',
+          state: this.state.netAddr
+        });
+        
+      }else{
+        window.alert("User already Exists!")
+        this.props.history.goBack();
+      }
 
     } else {
       window.alert('MediScan contract not deployed to detected network.')
@@ -89,6 +102,7 @@ class AddPatient extends Component{
       medical:'',
 
     }
+    
   }
 
 
