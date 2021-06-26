@@ -19,7 +19,7 @@ class Home extends Component{
     const accounts = (web3!=null)&&await web3.eth.getAccounts()
     this.setState({account: accounts[0]})
 
-    const networkID = await(web3!=null)&& web3.eth.net.getId()
+    const networkID =(web3!=null)&& await web3.eth.net.getId()
     console.log(networkID)
     const MediScanData = MediScan.networks[networkID]
 
