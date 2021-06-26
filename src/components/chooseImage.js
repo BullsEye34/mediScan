@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import React, { Component } from 'react'
 import Web3 from 'web3'
 import MediScan from '../abis/MediScan.json'
+import FileBase64 from 'react-file-base64';
 
 class ChooseImage extends Component{
 
@@ -64,7 +65,7 @@ class ChooseImage extends Component{
       newPatient: {},
       netAddr: '',
       patientCreated:{},
-      selectedFile: null
+      files: []
 
     }
   }
@@ -74,28 +75,41 @@ class ChooseImage extends Component{
                 <Navbar account={this.state.account}/>
                 <center>
                 <div className="imageCard">
-                    <div className="actualCards">
+                { this.state.files.length == 0 ?<div className="actualCards">
                         Capture
-                    </div>
-                    <div className="actualCards" >
-                    <input type="file" onChange={this.fileChangedHandler}/>
+                    </div>:null}
+                    { this.state.files.length == 0 ?<div className="actualCards" >
+                     <FileBase64
+        multiple={ true }
+        onDone={ this.getFiles.bind(this) } />
                         Upload
-                    </div>
+                    </div>:null}
+                    <div className="text-center">
+          { this.state.files.map((file,i) => {
+            console.log(JSON.stringify(this.state.files[0]['base64']/* , null, 2 */))
+            return <img key={i} src={file.base64} />
+          }) }
+          <img src="" />
+        </div>
+
+        { this.state.files.length != 0 ?
+          <div>
+            <h3 className="text-center mt-25">Callback Object</h3>
+            <div className="pre-container">
+              <pre>{ JSON.stringify(this.state.files[0]['name']+" "+this.state.files[0]['type']+" "+this.state.files[0]['size'], null, 2) }</pre>
+            </div>
+          </div>
+        : null }
                 </div>
                 </center>
             </div>
         );
     }
 
-    fileChangedHandler = event => {
-       this.setState({ selectedFile: event.target.files[0] })
-      console.log(event.target.files[0] )
-      
-    }
-    
-    uploadHandler = () => {
-      console.log(this.state.selectedFile)
-    }
+    // Callback~
+  getFiles(files){
+    this.setState({ files: files })
+  }
 }
 
 export default ChooseImage;
