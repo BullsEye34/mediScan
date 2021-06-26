@@ -16,10 +16,10 @@ class Home extends Component{
 
   async loadAccount(){
     const web3 = window.web3
-    const accounts = await web3.eth.getAccounts()
+    const accounts = (web3!=null)&&await web3.eth.getAccounts()
     this.setState({account: accounts[0]})
 
-    const networkID = await web3.eth.net.getId()
+    const networkID = await(web3!=null)&& web3.eth.net.getId()
     console.log(networkID)
     const MediScanData = MediScan.networks[networkID]
 
