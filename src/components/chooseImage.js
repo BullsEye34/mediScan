@@ -63,7 +63,8 @@ class ChooseImage extends Component{
     this.state = {
       newPatient: {},
       netAddr: '',
-      patientCreated:{}
+      patientCreated:{},
+      selectedFile: null
 
     }
   }
@@ -76,13 +77,24 @@ class ChooseImage extends Component{
                     <div className="actualCards">
                         Capture
                     </div>
-                    <div className="actualCards">
+                    <div className="actualCards" >
+                    <input type="file" onChange={this.fileChangedHandler}/>
                         Upload
                     </div>
                 </div>
                 </center>
             </div>
         );
+    }
+
+    fileChangedHandler = event => {
+       this.setState({ selectedFile: event.target.files[0] })
+      console.log(event.target.files[0] )
+      
+    }
+    
+    uploadHandler = () => {
+      console.log(this.state.selectedFile)
     }
 }
 
