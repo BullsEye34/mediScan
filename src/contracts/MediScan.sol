@@ -18,6 +18,16 @@ contract MediScan {
         address patientAddress,
         bool isUser
     );
+    // Create an event called patientEdit to notify the listeners that the patient was Edited
+
+    event patientEdit(
+        string name,
+    string residenceAddress,
+    uint phno,
+    string nominees, 
+    string medicalIssues, 
+    string allergies
+        );
 
     // Create a struct called Patient to store the data of the patient
     struct Patient {
@@ -70,5 +80,38 @@ contract MediScan {
             patientAddress,
             true
         );
+    }
+
+    
+    // Create a function to edit the patient's details if neccessary
+    function editPatient(
+        address patientAddress, 
+        string memory name, 
+        string memory residenceAddress, 
+        uint256  phno, 
+        string memory nominees, 
+        string memory medicalIssues,  
+        string memory allergies 
+    ) public {
+        // User should exist
+    require(!(!Patients[patientAddress].isUser));
+        // Set all data
+        Patients[patientAddress].name=name;
+        Patients[patientAddress].residenceAddress=residenceAddress;
+        Patients[patientAddress].phno=phno;
+        Patients[patientAddress].nominees=nominees;
+        Patients[patientAddress].medicalIssues=medicalIssues;
+        Patients[patientAddress].allergies=allergies;
+        
+        // Emit that patient was Edited
+        emit patientEdit(
+            Patients[patientAddress].name, 
+            Patients[patientAddress].residenceAddress,
+            Patients[patientAddress].phno,
+            Patients[patientAddress].nominees,
+            Patients[patientAddress].medicalIssues,
+            Patients[patientAddress].allergies
+            );
+        
     }
 }
