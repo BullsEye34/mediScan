@@ -39,7 +39,7 @@ class AddPatient extends Component{
    onFormSubmit(e) {
     e.preventDefault()
      if(this.state.name===''||this.state.address===''||this.state.phone===''||this.state.nominee===''||
-     this.state.medical===''||this.state.allergies===''||this.state.netAddr===''){
+     this.state.medical===''||this.state.allergies===''){
        alert("Empty Fields!\n\n All Textfields are compulsory")
      }else{
        
@@ -50,12 +50,11 @@ class AddPatient extends Component{
       this.state.nominee,
       this.state.medical,
       this.state.allergies,
-      this.state.netAddr,
       );
      }
   }
 
-  async addPatient( name,  address,  phno,  nominee,  medicalIssue,  allergies,  networkAddress){
+  async addPatient( name,  address,  phno,  nominee,  medicalIssue,  allergies){
     //console.log(name+" "+address+" "+phno+" "+nominee+" "+medicalIssue+" "+allergies+" "+networkAddress)
     const web3 = window.web3
     const networkID = await web3.eth.net.getId()
@@ -66,8 +65,12 @@ class AddPatient extends Component{
       const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
       this.setState({ mediScan })
       //let newPatient = await mediScan.methods.createPatient('P Vamshi Prasad', '284, 2nd main, new BDA Layout', 1234567890, 'NA', 'NA', 'NA', '0x1cCb76B390446c359ED1De49f0Bd8b25D418DA86').send({from: this.state.account}).call()
-      
-      if((await mediScan.methods.Patients(networkAddress).call())["patientAddress"]==="0x0000000000000000000000000000000000000000") {
+      let accountsArray = await web3.eth.getAccounts();
+      let newAccount = web3.eth.accounts.create();
+      accountsArray.push(newAccount.address)
+      this.setState({netAddr:newAccount.address})
+      console.log(this.state.netAddr)
+      /* if((await mediScan.methods.Patients(networkAddress).call())["patientAddress"]==="0x0000000000000000000000000000000000000000") {
         let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), nominee, medicalIssue, allergies, networkAddress).send({from: this.state.account})
         this.setState({newPatient})
         let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
@@ -80,7 +83,7 @@ class AddPatient extends Component{
       }else{
         window.alert("User already Exists!")
         this.props.history.goBack();
-      }
+      } */
 
     } else {
       window.alert('MediScan contract not deployed to detected network.')
@@ -174,7 +177,7 @@ class AddPatient extends Component{
     </Col>
   </Form.Group>
 
-  <Form.Group as={Row} controlId="netAddr">
+  {/* <Form.Group as={Row} controlId="netAddr">
     <Form.Label column sm="2">
        Network Address
     </Form.Label>
@@ -182,7 +185,7 @@ class AddPatient extends Component{
       <Form.Control
             required value={this.state.netAddr} onChange={(e)=>this.setState({netAddr:e.target.value})} type="text" placeholder="0x123456......" />
     </Col>
-  </Form.Group>
+  </Form.Group> */}
   <Link to={{pathname: "/added", state: this.state.netAddr}}  onClick={(e)=>this.onFormSubmit(e)}>
   <Button variant="primary" type="button" >
     Submit
