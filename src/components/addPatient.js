@@ -69,21 +69,21 @@ class AddPatient extends Component{
       let newAccount = web3.eth.accounts.create();
       accountsArray.push(newAccount.address)
       this.setState({netAddr:newAccount.address})
-      console.log(this.state.netAddr)
-      /* if((await mediScan.methods.Patients(networkAddress).call())["patientAddress"]==="0x0000000000000000000000000000000000000000") {
-        let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), nominee, medicalIssue, allergies, networkAddress).send({from: this.state.account})
+      console.log("New Account: "+this.state.netAddr)
+      if((await mediScan.methods.Patients(this.state.netAddr).call())["patientAddress"]==="0x0000000000000000000000000000000000000000") {
+        let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), (nominee.split(";").toString()), (medicalIssue.split(";")).toString(), (allergies.split(";").toString()), this.state.netAddr).send({from: this.state.account})
         this.setState({newPatient})
         let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
         console.log(patientCreated)
         this.props.history.push({
-          pathname: '/added',
-          state: this.state.netAddr
+          pathname: '/qrCode',
+          state: JSON.stringify({"address":this.state.netAddr})
         });
         
       }else{
         window.alert("User already Exists!")
         this.props.history.goBack();
-      } */
+      }
 
     } else {
       window.alert('MediScan contract not deployed to detected network.')

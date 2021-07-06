@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Web3 from 'web3'
 import MediScan from '../abis/MediScan.json'
 import FileBase64 from 'react-file-base64';
+import { Link } from "react-router-dom";
 
 class ChooseImage extends Component{
 
@@ -86,7 +87,7 @@ class ChooseImage extends Component{
                     </div>:null}
                     <div className="text-center">
           { this.state.files.map((file,i) => {
-            console.log(JSON.stringify(this.state.files[0]['base64']/* , null, 2 */))
+            console.log(JSON.stringify({"address":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */))
             return <img key={i} src={file.base64} />
           }) }
           <img src="" />
@@ -100,6 +101,9 @@ class ChooseImage extends Component{
             </div>
           </div>
         : null }
+            {this.state.files.length==0?null :<Link to={{pathname: "/qrCode", state: JSON.stringify({"address":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */)}} ><div style={{color: 'white', borderRadius: 10, backgroundColor:'blue', height: 50, width: 100, justifyContent: 'center'}}>
+              SUBMIT
+            </div></Link> }
                 </div>
                 </center>
             </div>
