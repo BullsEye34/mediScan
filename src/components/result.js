@@ -77,7 +77,7 @@ class Result extends Component{
     </Form.Label>
     <Col sm="10">
       <Form.Control 
-            required value={(this.state.data==null)?"":this.state.data['name']} disabled="true" onChange={(e)=>this.setState({name:e.target.value})} type="name" placeholder="Name" />
+            required value={(this.state.data==null)?"":this.state.data['name']} disabled={true} onChange={(e)=>this.setState({name:e.target.value})} type="name" placeholder="Name" />
     </Col>
   </Form.Group>
 
@@ -87,7 +87,7 @@ class Result extends Component{
     </Form.Label>
     <Col sm="10">
       <Form.Control
-            required value={(this.state.data==null)?"":this.state.data['phno']} disabled="true" onChange={(e)=>this.setState({phone:e.target.value})} type="number" placeholder="Phone Number" />
+            required value={(this.state.data==null)?"":this.state.data['phno']} disabled={true} onChange={(e)=>this.setState({phone:e.target.value})} type="number" placeholder="Phone Number" />
     </Col>
   </Form.Group>
   
@@ -97,7 +97,7 @@ class Result extends Component{
     </Form.Label>
     <Col sm="10">
     <Form.Control
-            required as="textarea" value={(this.state.data==null)?"":this.state.data['residenceAddress']} disabled="true" onChange={(e)=>this.setState({address:e.target.value})} rows={3} placeholder="Residential Address" />
+            required as="textarea" value={(this.state.data==null)?"":this.state.data['residenceAddress']} disabled={true} onChange={(e)=>this.setState({address:e.target.value})} rows={3} placeholder="Residential Address" />
     </Col>
   </Form.Group>
 
@@ -107,7 +107,7 @@ class Result extends Component{
     </Form.Label>
     <Col sm="10">
       <Form.Control
-            required as="textarea" type="text" value={(this.state.data==null)?"":this.state.data['nominees'].split(";")} disabled="true" onChange={(e)=>this.setState({nominee:e.target.value})} placeholder="Nominee Name" />
+            required as="textarea" type="text" value={(this.state.data==null)?"":this.state.data['nominees'].split(";")} disabled={true} onChange={(e)=>this.setState({nominee:e.target.value})} placeholder="Nominee Name" />
     </Col>
   </Form.Group>
 
@@ -117,7 +117,7 @@ class Result extends Component{
     </Form.Label>
     <Col sm="10">
       <Form.Control
-            required as="textarea" value={(this.state.data==null)?"":this.state.data['allergies'].split(";")} disabled="true" onChange={(e)=>this.setState({allergies:e.target.value})} type="text" placeholder="Allergies" />
+            required as="textarea" value={(this.state.data==null)?"":this.state.data['allergies'].split(";")} disabled={true} onChange={(e)=>this.setState({allergies:e.target.value})} type="text" placeholder="Allergies" />
     </Col>
   </Form.Group>
 
@@ -127,7 +127,7 @@ class Result extends Component{
     </Form.Label>
     <Col sm="10">
       <Form.Control
-            required as="textarea" value={(this.state.data==null)?"":this.state.data['medicalIssues'].split(";")} disabled="true" onChange={(e)=>this.setState({medical:e.target.value})} type="text" placeholder="Medical Issues" />
+            required as="textarea" value={(this.state.data==null)?"":this.state.data['medicalIssues'].split(";")} disabled={true} onChange={(e)=>this.setState({medical:e.target.value})} type="text" placeholder="Medical Issues" />
     </Col>
   </Form.Group>
 
