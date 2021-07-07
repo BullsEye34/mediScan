@@ -15,12 +15,17 @@ contract MediScan {
         uint256 phno,
         string medicalIssues,
         string allergies,
+        string image,
         address patientAddress,
         bool isUser
     );
     // Create an event called patientEdit to notify the listeners that the patient was Edited
 
-    event patientEdit(string nominees, string medicalIssues, string allergies);
+    event patientEdit(
+        string nominees, 
+        string medicalIssues, 
+        string allergies
+    );
 
     // Create a struct called Patient to store the data of the patient
     struct Patient {
@@ -31,6 +36,7 @@ contract MediScan {
         uint256 phno;
         string medicalIssues; // seperated by ;
         string allergies; //seperated by ;
+        string image; // Patient's Image
         address patientAddress; // Patient's Address
         bool isUser;
     }
@@ -43,6 +49,7 @@ contract MediScan {
         string memory nominees,
         string memory medicalIssues,
         string memory allergies,
+        string memory image,
         address patientAddress
     ) public {
         // If a user already exists then fail the transaction
@@ -57,6 +64,7 @@ contract MediScan {
             phno,
             medicalIssues,
             allergies,
+            image,
             patientAddress,
             true
         );
@@ -69,7 +77,8 @@ contract MediScan {
             nominees,
             phno,
             medicalIssues,
-            allergies,
+            allergies, 
+            image,
             patientAddress,
             true
         );
