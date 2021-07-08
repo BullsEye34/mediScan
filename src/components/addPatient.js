@@ -38,14 +38,14 @@ class AddPatient extends Component{
 
    onFormSubmit(e) {
     e.preventDefault()
-     if(this.state.name===''||this.state.address===''||this.state.phone===''||this.state.nominee===''||
+     if(this.state.name===''||this.state.ResAddress===''||this.state.phone===''||this.state.nominee===''||
      this.state.medical===''||this.state.allergies===''){
        alert("Empty Fields!\n\n All Textfields are compulsory")
      }else{
        
     this.addPatient(
       this.state.name,
-      this.state.address,
+      this.state.ResAddress,
       this.state.phone,
       this.state.nominee,
       this.state.medical,
@@ -54,7 +54,7 @@ class AddPatient extends Component{
      }
   }
 
-  async addPatient( name,  address,  phno,  nominee,  medicalIssue,  allergies){
+  async addPatient( name,  ResAddress,  phno,  nominee,  medicalIssue,  allergies){
     //console.log(name+" "+address+" "+phno+" "+nominee+" "+medicalIssue+" "+allergies+" "+networkAddress)
     const web3 = window.web3
     const networkID = await web3.eth.net.getId()
@@ -65,26 +65,33 @@ class AddPatient extends Component{
       const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
       this.setState({ mediScan })
       //let newPatient = await mediScan.methods.createPatient('P Vamshi Prasad', '284, 2nd main, new BDA Layout', 1234567890, 'NA', 'NA', 'NA', '0x1cCb76B390446c359ED1De49f0Bd8b25D418DA86').send({from: this.state.account}).call()
-      let accountsArray = await web3.eth.getAccounts();
+      /*let accountsArray = await web3.eth.getAccounts();
       let newAccount = web3.eth.accounts.create();
       accountsArray.push(newAccount.address)
       this.setState({netAddr:newAccount.address})
-      console.log("New Account: "+this.state.netAddr)
-      if((await mediScan.methods.Patients(this.state.netAddr).call())["patientAddress"]==="0x0000000000000000000000000000000000000000") {
-        let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), (nominee.split(";").toString()), (medicalIssue.split(";")).toString(), (allergies.split(";").toString()), this.state.netAddr).send({from: this.state.account})
+      console.log("New Account: "+this.state.netAddr)*/
+      /*if((await mediScan.methods.Patients(this.state.netAddr).call())["patientAddress"]==="0x0000000000000000000000000000000000000000") {
+        /*let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), (nominee.split(";").toString()), (medicalIssue.split(";")).toString(), (allergies.split(";").toString()), this.state.netAddr).send({from: this.state.account})
         this.setState({newPatient})
         let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
-        console.log(patientCreated)
-        this.props.history.push({
-          pathname: '/qrCode',
-          state: JSON.stringify({"address":this.state.netAddr})
-        });
+        console.log(patientCreated)*
+        
         
       }else{
         window.alert("User already Exists!")
         this.props.history.goBack();
-      }
-
+      }*/
+      this.props.history.push({
+          pathname: '/added',
+          state: JSON.stringify({
+            "name": name, 
+            "Resaddress": ResAddress, 
+            "phno":phno,
+            "nominee":nominee, 
+            "medicalIssue":medicalIssue, 
+            "allergies":allergies
+        })
+      });
     } else {
       window.alert('MediScan contract not deployed to detected network.')
     }
@@ -99,7 +106,7 @@ class AddPatient extends Component{
       netAddr: '',
       name:'',
       phone:'',
-      address:'',
+      ResAddress:'',
       allergies:'',
       nominee:'',
       medical:'',
@@ -143,7 +150,7 @@ class AddPatient extends Component{
     </Form.Label>
     <Col sm="10">
     <Form.Control
-            required as="textarea" value={this.state.address} onChange={(e)=>this.setState({address:e.target.value})} rows={3} placeholder="Residential Address" />
+            required as="textarea" value={this.state.ResAddress} onChange={(e)=>this.setState({ResAddress:e.target.value})} rows={3} placeholder="Residential Address" />
     </Col>
   </Form.Group>
 

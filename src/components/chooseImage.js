@@ -12,7 +12,8 @@ class ChooseImage extends Component{
   async componentWillMount(){
       
     console.log(this.props.location.state)
-    this.setState({netAddr:this.props.location.state})
+    //this.setState({netAddr:this.props.location.state})
+    this.setState({prevData: this.props.location.state})
     await this.loadWeb3()
     await this.loadAccount()
     await this.loadData()
@@ -48,9 +49,7 @@ class ChooseImage extends Component{
     if(MediScanData) {
       const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
       this.setState({ mediScan })
-      let patientCreated = await mediScan.methods.Patients(this.props.location.state).call()
-      console.log(patientCreated)
-      this.setState({patientCreated})
+      
 
     } else {
       window.alert('MediScan contract not deployed to detected network.')
@@ -64,7 +63,6 @@ class ChooseImage extends Component{
     super(props)
     this.state = {
       newPatient: {},
-      netAddr: '',
       patientCreated:{},
       files: []
 
@@ -87,8 +85,9 @@ class ChooseImage extends Component{
                     </div>:null}
                     <div className="text-center">
           { this.state.files.map((file,i) => {
-            console.log(JSON.stringify({"address":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */))
-            return <img key={i} src={file.base64} />
+            console.log(JSON.stringify({"prevData":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */))
+            
+            return <img key={i} src={file.base64} width={400} />
           }) }
           <img src="" />
         </div>
@@ -101,7 +100,7 @@ class ChooseImage extends Component{
             </div>
           </div>
         : null }
-            {this.state.files.length==0?null :<Link to={{pathname: "/qrCode", state: JSON.stringify({"address":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */)}} ><div style={{color: 'white', borderRadius: 10, backgroundColor:'blue', height: 50, width: 100, justifyContent: 'center'}}>
+            {this.state.files.length==0?null :<Link to={{pathname: "/qrCode", state: JSON.stringify({"prevData":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */)}} ><div style={{color: 'white', borderRadius: 10, backgroundColor:'blue', height: 50, width: 100, justifyContent: 'center'}}>
               SUBMIT
             </div></Link> }
                 </div>
