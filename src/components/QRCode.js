@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import QRCode from "react-qr-code";
 import Web3 from 'web3';
 import './App.css'
+import MediScan from '../abis/MediScan.json'
 
 class QRCodee extends Component{
     /// More like initState of Flutter
@@ -10,6 +11,7 @@ class QRCodee extends Component{
     this.setState({data:this.props.location.state})
     await this.loadWeb3()
     await this.loadAccount()
+    await this.createAccount()
   }
 
   async loadAccount(){
@@ -33,6 +35,37 @@ class QRCodee extends Component{
       window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
     }
   }
+
+  async createAccount(){
+    let name = JSON.parse(JSON.parse(this.props.location.state)['prevData'])['name'];
+    let address = JSON.parse(JSON.parse(this.props.location.state)['prevData'])['Resaddress'];
+    let phno = JSON.parse(JSON.parse(this.props.location.state)['prevData'])['phno'];
+    let nominee = JSON.parse(JSON.parse(this.props.location.state)['prevData'])['nominee'];
+    let medicalIssue = JSON.parse(JSON.parse(this.props.location.state)['prevData'])['medicalIssue'];
+    let allergies = JSON.parse(JSON.parse(this.props.location.state)['prevData'])['allergies'];
+    let image = JSON.parse(this.props.location.state)['base64'];
+    const web3 = window.web3
+    const networkID = await web3.eth.net.getId()
+    console.log(networkID)
+    const MediScanData = MediScan.networks[networkID]
+
+    if(MediScanData) {
+      const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
+      this.setState({ mediScan })
+      //let newPatient = await mediScan.methods.createPatient('P Vamshi Prasad', '284, 2nd main, new BDA Layout', 1234567890, 'NA', 'NA', 'NA', '0x1cCb76B390446c359ED1De49f0Bd8b25D418DA86').send({from: this.state.account}).call()
+      let accountsArray = await web3.eth.getAccounts();
+      let newAccount = web3.eth.accounts.create();
+      accountsArray.push(newAccount.address)
+      this.setState({netAddr:newAccount.address})
+      console.log("New Account: "+this.state.netAddr)
+      
+      let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), (nominee.split(";").toString()), (medicalIssue.split(";")).toString(), (allergies.split(";").toString()), image, this.state.netAddr).send({from: this.state.account})
+        this.setState({newPatient})
+        let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
+        console.log(patientCreated)
+        
+  }
+} 
     constructor(props) {
         super(props)
         this.state = {
@@ -46,7 +79,7 @@ class QRCodee extends Component{
            <Navbar account={this.state.account}/>
            </div>
            <center><h1>MediScan Regitration Successful!</h1></center>
-                <center><QRCode value={this.state.data} className='qrc' /></center>
+                <center>{this.state.newPatient==null?<br/>:<QRCode value={this.state.netAddr} className='qrc' />}</center>
                 
 <center><div onClick={(e)=>this.props.history.push({
           pathname: '/'})
