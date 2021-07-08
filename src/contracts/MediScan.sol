@@ -1,6 +1,6 @@
 // Use Solidity Version greater than 0.7.0 and less than 0.9.0
 
-pragma solidity ^0.5.0;
+pragma solidity ^0.8.6;
 
 // Create a Smart Contract called Medical
 contract MediScan {
@@ -21,11 +21,7 @@ contract MediScan {
     );
     // Create an event called patientEdit to notify the listeners that the patient was Edited
 
-    event patientEdit(
-        string nominees, 
-        string medicalIssues, 
-        string allergies
-    );
+    event patientEdit(string nominees, string medicalIssues, string allergies);
 
     // Create a struct called Patient to store the data of the patient
     struct Patient {
@@ -77,7 +73,7 @@ contract MediScan {
             nominees,
             phno,
             medicalIssues,
-            allergies, 
+            allergies,
             image,
             patientAddress,
             true
