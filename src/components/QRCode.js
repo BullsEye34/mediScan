@@ -11,7 +11,8 @@ class QRCodee extends Component{
     this.setState({data:this.props.location.state})
     await this.loadWeb3()
     await this.loadAccount()
-    await this.createAccount()
+    await this.handleSubmitFile()
+    //await this.createAccount()
   }
 
   async loadAccount(){
@@ -72,6 +73,8 @@ class QRCodee extends Component{
           data: '',
         }
       }
+
+        
       render(){
         return(
             <div>

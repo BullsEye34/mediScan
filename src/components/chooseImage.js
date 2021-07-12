@@ -4,8 +4,10 @@ import Web3 from 'web3'
 import MediScan from '../abis/MediScan.json'
 import FileBase64 from 'react-file-base64';
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 class ChooseImage extends Component{
+  custom_file_upload_url = `localhost:3000/upload/post`;
 
             
   /// More like initState of Flutter
@@ -57,6 +59,8 @@ class ChooseImage extends Component{
     
   }
 
+
+
     
 
   constructor(props) {
@@ -85,8 +89,8 @@ class ChooseImage extends Component{
                     </div>:null}
                     <div className="text-center">
           { this.state.files.map((file,i) => {
-            console.log(JSON.stringify({"prevData":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */))
-            
+            //console.log(JSON.stringify({"prevData":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */))
+            console.log(this.state.files[0]);
             return <img key={i} src={file.base64} width={400} />
           }) }
           <img src="" />
@@ -100,7 +104,7 @@ class ChooseImage extends Component{
             </div>
           </div>
         : null }
-            {this.state.files.length==0?null :<Link to={{pathname: "/qrCode", state: JSON.stringify({"prevData":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */)}} ><div style={{color: 'white', borderRadius: 10, backgroundColor:'blue', height: 50, width: 100, justifyContent: 'center'}}>
+            {this.state.files.length==0?null :<Link to={{pathname: "/qrCode", state: JSON.stringify({"prevData":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */)}} onClick={(e)=>this.onFormSubmit(e)}><div style={{color: 'white', borderRadius: 10, backgroundColor:'blue', height: 50, width: 100, justifyContent: 'center'}}>
               SUBMIT
             </div></Link> }
                 </div>
@@ -113,6 +117,44 @@ class ChooseImage extends Component{
   getFiles(files){
     this.setState({ files: files })
   }
+
+  onFormSubmit(e) {
+    e.preventDefault()
+     this.handleSubmitFile();
+  }
+    // Image/File Submit Handler
+    handleSubmitFile = async() => {
+
+      if (this.state.files[0] !== null){
+
+          let formData = new FormData();
+          let config = {
+
+            headers: {
+              "Content-type": "multipart/form-data",
+                "Access-Control-Allow-Origin" : "",
+                "Allow": "GET",
+        
+            
+            }
+        };
+          formData.append('image', this.state.files[0]);
+          // the image field name should be similar to your api endpoint field name
+          // in my case here the field name is customFile
+
+          axios.post(
+              this.custom_file_upload_url,
+              formData,
+              config
+          )
+          .then(res => {
+              console.log(`Success` + res.data);
+          })
+          .catch(err => {
+              console.log(err);
+          })
+      }
+  }
 }
 
-export default ChooseImage;
+export default ChooseImage; 

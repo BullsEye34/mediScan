@@ -1,12 +1,36 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
+app.use(cors({'origin':'http://localhost:3001',
+credentials:true,            
+optionSuccessStatus:200}));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 const port = process.env.PORT || 3000;
 const router = require('./router');
 const path = require('path');
 
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+
+app.all("/", function(req, res, next) {
+  req.header("Origin", "*"); // ideally the '*' will be your hostname
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS");
+  res.header("Access-Control-Expose-Headers", "ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset");
+  res.header("Access-Control-Max-Age", "86400");
+  res.header("Access-Control-Allow-Credentials", true);
+  return next();
+});
+
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
