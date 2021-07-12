@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-app.use(cors({'origin':'http://localhost:3001',
+app.use(cors({'origin':'*',
 credentials:true,            
 optionSuccessStatus:200}));
 

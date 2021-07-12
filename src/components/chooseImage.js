@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 class ChooseImage extends Component{
-  custom_file_upload_url = `localhost:3000/upload/post`;
+  custom_file_upload_url = `http://localhost:3000/upload/post`;
 
             
   /// More like initState of Flutter
