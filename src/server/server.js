@@ -2,9 +2,6 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-app.use(cors({'origin':'*',
-credentials:true,            
-optionSuccessStatus:200}));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -19,7 +16,12 @@ const path = require('path');
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-
+// Allowed origins
+const allowedOrigins = ['*'];
+const options= cors.CorsOptions = {
+  origin: allowedOrigins,
+};
+app.use(cors(options));
 app.all("/", function(req, res, next) {
   req.header("Origin", "*"); // ideally the '*' will be your hostname
   res.header("Access-Control-Allow-Origin", "*");

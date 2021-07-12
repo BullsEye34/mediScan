@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 class ChooseImage extends Component{
-  custom_file_upload_url = `http://localhost:3000/upload/post`;
+  custom_file_upload_url = `http://192.168.0.14:3000/upload/post`;
 
             
   /// More like initState of Flutter
@@ -133,22 +133,22 @@ class ChooseImage extends Component{
             headers: {
               "Content-type": "multipart/form-data",
                 "Access-Control-Allow-Origin" : "",
-                "Allow": "GET",
+                "Allow": "POST",
         
             
             }
         };
-          formData.append('image', this.state.files[0]);
+          formData.append('image', this.state.files[0]['file']);
           // the image field name should be similar to your api endpoint field name
           // in my case here the field name is customFile
-
           axios.post(
               this.custom_file_upload_url,
               formData,
               config
           )
           .then(res => {
-              console.log(`Success` + res.data);
+              //console.log(`Success` + JSON.parse(res.data.toString()));
+              console.log(JSON.parse(JSON.stringify(res.data)));
           })
           .catch(err => {
               console.log(err);
