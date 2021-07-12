@@ -9,8 +9,8 @@ class Result extends Component{
         
   /// More like initState of Flutter
   async componentWillMount(){
-    console.log(JSON.parse(JSON.parse(this.props.location.state)['address']['text'])['address'])
-    this.setState({netAddr: JSON.parse(JSON.parse(this.props.location.state)['address']['text'])['address']})
+    console.log(JSON.parse(this.props.location.state)['address']['text'])
+    this.setState({netAddr: JSON.parse(this.props.location.state)['address']['text']})
     await this.loadWeb3()
     await this.loadAccount()
     await this.loadData()
@@ -71,7 +71,22 @@ class Result extends Component{
               <center>
              <div className="adder">
               <Form onSubmit={(e)=>this.onFormSubmit()}>
+
+              <Form.Group as={Row} controlId="image">
+              <Form.Label column sm="2">
+      Patient Image
+    </Form.Label>
+    <Col sm="10">
+    {/*<Form.Control 
+            required as="textarea" value={(this.state.data==null)?"":"localhost:3000/"+this.state.data['image']} disabled={true} onChange={(e)=>this.setState({name:e.target.value})} type="image" placeholder="Image" />
+    */}
+<img src={(this.state.data==null)?"":"http://localhost:3000/public/images/"+this.state.data['image']} />
+</Col>
+  </Form.Group>
+
               <Form.Group as={Row} controlId="name">
+
+
     <Form.Label column sm="2">
       Patient Name
     </Form.Label>
