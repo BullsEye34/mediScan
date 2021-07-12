@@ -11,8 +11,7 @@ class QRCodee extends Component{
     this.setState({data:this.props.location.state})
     await this.loadWeb3()
     await this.loadAccount()
-    await this.handleSubmitFile()
-    //await this.createAccount()
+    await this.createAccount()
   }
 
   async loadAccount(){
@@ -44,7 +43,7 @@ class QRCodee extends Component{
     let nominee = JSON.parse(JSON.parse(this.props.location.state)['prevData'])['nominee'];
     let medicalIssue = JSON.parse(JSON.parse(this.props.location.state)['prevData'])['medicalIssue'];
     let allergies = JSON.parse(JSON.parse(this.props.location.state)['prevData'])['allergies'];
-    let image = JSON.parse(this.props.location.state)['base64'];
+    let image = JSON.parse(this.props.location.state)['image'];
     const web3 = window.web3
     const networkID = await web3.eth.net.getId()
     console.log(networkID)

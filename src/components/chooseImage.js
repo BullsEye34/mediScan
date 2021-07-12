@@ -147,8 +147,11 @@ class ChooseImage extends Component{
               config
           )
           .then(res => {
-              //console.log(`Success` + JSON.parse(res.data.toString()));
               console.log(JSON.parse(JSON.stringify(res.data)));
+              this.props.history.push({
+                pathname: '/qrCode',
+                state: JSON.stringify({"prevData":this.props.location.state,"image":JSON.parse(JSON.stringify(res.data))['name']})
+            });
           })
           .catch(err => {
               console.log(err);
