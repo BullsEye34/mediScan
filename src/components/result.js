@@ -147,7 +147,11 @@ class Result extends Component{
   </Form.Group>
 
   <p>Created By : {(this.state.data==null)?"":this.state.data['creatorAddress']}</p>
-  
+  <center><Button onClick={(e)=>this.props.history.push({
+          pathname: '/'})
+        } className='noprint' style={{color: 'white', marginTop:50, borderRadius: 10, backgroundColor:'blue', height: 50, width: 100, justifyContent: 'center'}}>
+DONE!
+</Button></center>  
 </Form>
               </div>
              </center>

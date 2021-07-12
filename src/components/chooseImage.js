@@ -5,6 +5,7 @@ import MediScan from '../abis/MediScan.json'
 import FileBase64 from 'react-file-base64';
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {Button} from 'react-bootstrap'
 
 class ChooseImage extends Component{
   custom_file_upload_url = `http://192.168.0.14:3000/upload/post`;
@@ -59,7 +60,10 @@ class ChooseImage extends Component{
     
   }
 
-
+  async handleTakePhotoAnimationDone(dataUri) {
+    console.log(dataUri)
+    this.setState({dataUri: dataUri})
+  }
 
     
 
@@ -68,19 +72,28 @@ class ChooseImage extends Component{
     this.state = {
       newPatient: {},
       patientCreated:{},
-      files: []
+      files: [],
+      dataUri:''
 
     }
   }
+
+ 
     render(){
         return(
             <div>
                 <Navbar account={this.state.account}/>
                 <center>
                 <div className="imageCard">
-                { this.state.files.length == 0 ?<div className="actualCards">
-                        Capture
-                    </div>:null}
+                {/* this.state.files.length == 0 ?<div className="actualCards">
+                
+                {/*(this.state.dataUri)
+          ? null
+          : <Camera isImageMirror={false} scale={0.5} onTakePhotoAnimationDone = {(eee)=>this.handleTakePhotoAnimationDone(eee)} 
+          onTakePhoto = { (dataUri) => { this.handleTakePhotoAnimationDone(dataUri); } }
+      
+                />*}
+                    </div>:null*/}
                     { this.state.files.length == 0 ?<div className="actualCards" >
                      <FileBase64
         multiple={ true }
@@ -104,9 +117,9 @@ class ChooseImage extends Component{
             </div>
           </div>
         : null }
-            {this.state.files.length==0?null :<Link to={{pathname: "/qrCode", state: JSON.stringify({"prevData":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */)}} onClick={(e)=>this.onFormSubmit(e)}><div style={{color: 'white', borderRadius: 10, backgroundColor:'blue', height: 50, width: 100, justifyContent: 'center'}}>
+            {this.state.files.length==0?null :<Link to={{pathname: "/qrCode", state: JSON.stringify({"prevData":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */)}} onClick={(e)=>this.onFormSubmit(e)}><Button style={{color: 'white', borderRadius: 10, backgroundColor:'blue', height: 50, width: 100, justifyContent: 'center'}}>
               SUBMIT
-            </div></Link> }
+            </Button></Link> }
                 </div>
                 </center>
             </div>
