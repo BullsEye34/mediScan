@@ -1,9 +1,11 @@
 import Navbar from "./Navbar";
 import React, { Component } from 'react'
+import {Button} from 'react-bootstrap'
 import QRCode from "react-qr-code";
 import Web3 from 'web3';
 import './App.css'
 import MediScan from '../abis/MediScan.json'
+var CryptoJS = require("crypto-js");
 
 class QRCodee extends Component{
     /// More like initState of Flutter
@@ -63,7 +65,10 @@ class QRCodee extends Component{
         this.setState({newPatient})
         let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
         console.log(patientCreated)
-        
+      
+        var ciphertext = CryptoJS.AES.encrypt(this.state.netAddr.toString(), 'Amcec1234567890B').toString();
+        this.setState({encrypt: ciphertext})
+ 
   }
 } 
     constructor(props) {
@@ -81,13 +86,13 @@ class QRCodee extends Component{
            <Navbar account={this.state.account}/>
            </div>
            <center><h1>MediScan Regitration Successful!</h1></center>
-                <center>{this.state.newPatient==null?<br/>:<QRCode value={this.state.netAddr} className='qrc' />}</center>
+                <center>{this.state.encrypt==null?<br/>:<QRCode value={this.state.encrypt.toString()} className='qrc' />}</center>
                 
-<center><div onClick={(e)=>this.props.history.push({
+<center><Button onClick={(e)=>this.props.history.push({
           pathname: '/'})
         } className='noprint' style={{color: 'white', marginTop:50, borderRadius: 10, backgroundColor:'blue', height: 50, width: 100, justifyContent: 'center'}}>
 DONE!
-</div></center>  
+</Button></center>  
             </div>
           
 );
