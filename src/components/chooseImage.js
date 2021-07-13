@@ -8,7 +8,7 @@ import axios from "axios";
 import {Button} from 'react-bootstrap'
 
 class ChooseImage extends Component{
-  custom_file_upload_url = `http://192.168.0.14:3000/upload/post`;
+  custom_file_upload_url = `http://192.168.0.14:3080/upload/post`;
 
             
   /// More like initState of Flutter

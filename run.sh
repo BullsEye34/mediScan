@@ -2,6 +2,6 @@
 
 npx truffle migrate --reset;
 
-nodemon ./src/server/server.js &&
+nodemon ./src/server/server.js &
 
-npm start &
+RUN y | npm start -y &
