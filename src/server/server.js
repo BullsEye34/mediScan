@@ -3,6 +3,36 @@ const cors = require('cors');
 
 const app = express();
 
+const http = require('http');
+
+const os = require('os-utils');
+const { Server } = require("socket.io");
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  transports: ['websocket', 'polling']
+});
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+
+
+let tick = 0;
+// 1. listen for socket connections
+io.on('connection', client => {
+  setInterval(() => {
+    // 2. every second, emit a 'cpu' event to user
+    os.cpuUsage(cpuPercent => {
+      client.emit('cpu', {
+        //name: tick++,
+        name:"",
+        value: cpuPercent
+      });
+    });
+  }, 1000);
+});
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
@@ -47,3 +77,4 @@ app.get("/public/images/:id",(req,res)=>{
 app.listen(port, function () {
   console.log('Server is running on PORT',port);
 });
+server.listen(3050);
