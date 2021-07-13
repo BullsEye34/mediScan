@@ -48,7 +48,7 @@ class Result extends Component{
         const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
         this.setState({ mediScan })
         console.log(this.state.netAddr)
-        var deciphertext = CryptoJS.AES.decrypt(this.state.netAddr, 'Amcec1234567890B');
+        var deciphertext = CryptoJS.AES.decrypt(this.state.netAddr.split("").reverse().join(""), 'Amcec1234567890B');
 
         var originalText = deciphertext.toString(CryptoJS.enc.Utf8);
         this.setState({decrypt: originalText})

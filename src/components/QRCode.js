@@ -86,7 +86,7 @@ class QRCodee extends Component{
            <Navbar account={this.state.account}/>
            </div>
            <center><h1>MediScan Regitration Successful!</h1></center>
-                <center>{this.state.encrypt==null?<br/>:<QRCode value={this.state.encrypt.toString()} className='qrc' />}</center>
+                <center>{this.state.encrypt==null?<br/>:<QRCode value={this.state.encrypt.toString().split("").reverse().join("")} className='qrc' />}</center>
                 
 <center><Button onClick={(e)=>this.props.history.push({
           pathname: '/'})
