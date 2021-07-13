@@ -82,7 +82,7 @@ class Result extends Component{
     {/*<Form.Control 
             required as="textarea" value={(this.state.data==null)?"":"localhost:3000/"+this.state.data['image']} disabled={true} onChange={(e)=>this.setState({name:e.target.value})} type="image" placeholder="Image" />
     */}
-<img src={(this.state.data==null)?"":"http://localhost:3000/public/images/"+this.state.data['image']} />
+<img src={(this.state.data==null)?"":"http://192.168.0.14:3080/public/images/"+this.state.data['image']} />
 </Col>
   </Form.Group>
 
