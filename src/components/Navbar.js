@@ -18,7 +18,6 @@ class Navbar extends Component {
   
   componentDidMount() {
     socket.on('cpu', cpuPercent => {
-      console.log(cpuPercent)
       //setData(currentData => [...currentData, cpuPercent]);
       var joined = this.state.data.concat(cpuPercent);
       this.setState({

@@ -20,7 +20,6 @@ class Home extends Component{
     this.setState({account: accounts[0]})
 
     const networkID =(web3!=null)&& await web3.eth.net.getId()
-    console.log(networkID)
     const MediScanData = MediScan.networks[networkID]
 
     if(MediScanData) {
@@ -28,7 +27,6 @@ class Home extends Component{
       this.setState({ mediScan })
       let Patients = await mediScan.methods.Patients(this.state.account).call()
       this.setState({Patients})
-      console.log(Patients)
 
     } else {
       window.alert('MediScan contract not deployed to detected network.')

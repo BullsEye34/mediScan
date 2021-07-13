@@ -14,7 +14,6 @@ class ChooseImage extends Component{
   /// More like initState of Flutter
   async componentWillMount(){
       
-    console.log(this.props.location.state)
     //this.setState({netAddr:this.props.location.state})
     this.setState({prevData: this.props.location.state})
     await this.loadWeb3()
@@ -46,7 +45,6 @@ class ChooseImage extends Component{
   async loadData(){
     const web3 = window.web3
     const networkID = await web3.eth.net.getId()
-    console.log(networkID)
     const MediScanData = MediScan.networks[networkID]
 
     if(MediScanData) {
@@ -61,7 +59,6 @@ class ChooseImage extends Component{
   }
 
   async handleTakePhotoAnimationDone(dataUri) {
-    console.log(dataUri)
     this.setState({dataUri: dataUri})
   }
 
@@ -102,8 +99,6 @@ class ChooseImage extends Component{
                     </div>:null}
                     <div className="text-center">
           { this.state.files.map((file,i) => {
-            //console.log(JSON.stringify({"prevData":this.props.location.state,"base64":this.state.files[0]['base64']}/* , null, 2 */))
-            console.log(this.state.files[0]);
             return <img key={i} src={file.base64} width={400} />
           }) }
           <img src="" />
@@ -160,14 +155,13 @@ class ChooseImage extends Component{
               config
           )
           .then(res => {
-              console.log(JSON.parse(JSON.stringify(res.data)));
               this.props.history.push({
                 pathname: '/qrCode',
                 state: JSON.stringify({"prevData":this.props.location.state,"image":JSON.parse(JSON.stringify(res.data))['name']})
             });
           })
           .catch(err => {
-              console.log(err);
+              console.error(err);
           })
       }
   }

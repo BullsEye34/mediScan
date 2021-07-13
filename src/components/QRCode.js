@@ -48,7 +48,6 @@ class QRCodee extends Component{
     let image = JSON.parse(this.props.location.state)['image'];
     const web3 = window.web3
     const networkID = await web3.eth.net.getId()
-    console.log(networkID)
     const MediScanData = MediScan.networks[networkID]
 
     if(MediScanData) {
@@ -59,12 +58,10 @@ class QRCodee extends Component{
       let newAccount = web3.eth.accounts.create();
       accountsArray.push(newAccount.address)
       this.setState({netAddr:newAccount.address})
-      console.log("New Account: "+this.state.netAddr)
       
       let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), (nominee.split(";").toString()), (medicalIssue.split(";")).toString(), (allergies.split(";").toString()), image, this.state.netAddr).send({from: this.state.account})
         this.setState({newPatient})
         let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
-        console.log(patientCreated)
       
         var ciphertext = CryptoJS.AES.encrypt(this.state.netAddr.toString(), 'Amcec1234567890B').toString();
         this.setState({encrypt: ciphertext})

@@ -55,10 +55,8 @@ class AddPatient extends Component{
   }
 
   async addPatient( name,  ResAddress,  phno,  nominee,  medicalIssue,  allergies){
-    //console.log(name+" "+address+" "+phno+" "+nominee+" "+medicalIssue+" "+allergies+" "+networkAddress)
     const web3 = window.web3
     const networkID = await web3.eth.net.getId()
-    console.log(networkID)
     const MediScanData = MediScan.networks[networkID]
 
     if(MediScanData) {
@@ -69,12 +67,10 @@ class AddPatient extends Component{
       let newAccount = web3.eth.accounts.create();
       accountsArray.push(newAccount.address)
       this.setState({netAddr:newAccount.address})
-      console.log("New Account: "+this.state.netAddr)*/
       /*if((await mediScan.methods.Patients(this.state.netAddr).call())["patientAddress"]==="0x0000000000000000000000000000000000000000") {
         /*let newPatient = await mediScan.methods.createPatient(name, address, parseInt(phno), (nominee.split(";").toString()), (medicalIssue.split(";")).toString(), (allergies.split(";").toString()), this.state.netAddr).send({from: this.state.account})
         this.setState({newPatient})
         let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
-        console.log(patientCreated)*
         
         
       }else{

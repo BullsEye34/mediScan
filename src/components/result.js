@@ -10,7 +10,6 @@ class Result extends Component{
         
   /// More like initState of Flutter
   async componentWillMount(){
-    console.log(JSON.parse(this.props.location.state)['address']['text'])
     this.setState({netAddr: JSON.parse(this.props.location.state)['address']['text']})
     await this.loadWeb3()
     await this.loadAccount()
@@ -41,21 +40,17 @@ class Result extends Component{
   async loadData(){
     const web3 = window.web3
     const networkID = await web3.eth.net.getId()
-    console.log(networkID)
     const MediScanData = MediScan.networks[networkID]
 
     if(MediScanData) {
         const mediScan = new web3.eth.Contract(MediScan.abi, MediScanData.address)
         this.setState({ mediScan })
-        console.log(this.state.netAddr)
         var deciphertext = CryptoJS.AES.decrypt(this.state.netAddr.split("").reverse().join(""), 'Amcec1234567890B');
 
         var originalText = deciphertext.toString(CryptoJS.enc.Utf8);
         this.setState({decrypt: originalText})
-        console.log(originalText);
         //let newPatient = await mediScan.methods.createPatient('P Vamshi Prasad', '284, 2nd main, new BDA Layout', 1234567890, 'NA', 'NA', 'NA', '0x1cCb76B390446c359ED1De49f0Bd8b25D418DA86').send({from: this.state.account}).call()
         let data = await mediScan.methods.Patients(this.state.decrypt).call();
-        console.log(data)
         this.setState({data: data});
        
   
