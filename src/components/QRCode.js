@@ -63,7 +63,7 @@ class QRCodee extends Component{
         this.setState({newPatient})
         let patientCreated = await mediScan.methods.Patients(this.state.netAddr).call()
       
-        var ciphertext = CryptoJS.AES.encrypt(this.state.netAddr.toString(), 'Amcec1234567890B').toString();
+        var ciphertext = CryptoJS.AES.encrypt(this.state.netAddr.toString().split("").reverse().join(""), 'Amcec1234567890B').toString();
         this.setState({encrypt: ciphertext})
  
   }
