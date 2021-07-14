@@ -142,8 +142,6 @@ class ChooseImage extends Component{
               "Content-type": "multipart/form-data",
                 "Access-Control-Allow-Origin" : "",
                 "Allow": "POST",
-        
-            
             }
         };
           formData.append('image', this.state.files[0]['file']);
